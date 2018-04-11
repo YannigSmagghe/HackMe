@@ -41,14 +41,29 @@ In feedbacks list page, a GET parameter `page` is vulnerable to XSS attack.
 1.1 Proof of concept
 ~~~~~~~~~~~~~~~~~~~~~
 Page : fiche.php (books list -> select one)
-    In the comment field u can load JS script when u write it with upper case (<SCRIPT></SCRIPT>)
+    In the name field u can load JS script when u write it with upper case (<SCRIPT></SCRIPT>)
 ~~~~~~~~~~~~~~~~~~~~~
 1.2 Code
 ~~~~~~~~
+    File : fiche.php
     
+    function verif_script($user){
+        if(strstr($user, '<script>')){
+            echo '<h1 style="color: red;">hahahaha</h1>';
+            return false;
+        }
+        return true;
+    }
+    
+    if(verif_script($user_name) && !empty($_POST)){
+        $add_comment = mysqli_query($mysqli, "
+    INSERT INTO commentaries (user_name, commentarie, comics_name) VALUES ('$user_name', '$comment', '$name');
+    ");
+    }
 ~~~~~~~~
 1.3 Fix
 ~~~~~~~~~~~~~~~~~~~~
+    htmlentities on $name
 ~~~~~~~~~~~~~~~~~~~~
 
 2 SQL Injection
@@ -80,7 +95,7 @@ Replace $data with '$data' in the line above
 ~~~~~~~~~~~~~~~~~~~
 Page : login.php
 
-Login as "USER' AND substring(version(), 1, 1) = 5 AND 'test'='test" with the right password let u logging in.
+Login as "USER' AND substring(version(), 1, 1) = 5 AND 'test'='test" with your password let u loging in.
 If u replace the version tested by 4, connexion will fail. 
 ~~~~~~~~~~~~~~~~~~~
 1.2 Code
@@ -123,7 +138,7 @@ $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 1.3 Fix
 ~~~~~~~
-TODO
+Use dedicated library to upload image files
 ~~~~~~~
 5 File inclusion
 ----------------
