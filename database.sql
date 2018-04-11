@@ -58,8 +58,7 @@ CREATE TABLE `people` (
   `email` varchar(45) NOT NULL,
   `avatar` blob,
   `code_2_connexion` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email_UNIQUE` (`email`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
