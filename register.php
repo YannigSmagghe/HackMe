@@ -28,7 +28,7 @@ include_once("config.php");
 		// if all the fields are filled (not empty) 
 			
 		//insert data to database
-        $hashed_password = crypt($password);
+        $hashed_password = md5($password);
 		$result = mysqli_query($mysqli, "INSERT INTO people(denomination,code_2_connexion) VALUES('$login','$hashed_password')");
 		
 		//display success message
