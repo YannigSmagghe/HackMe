@@ -33,7 +33,7 @@ $books = mysqli_query($mysqli, "SELECT id, denomination FROM comics;")
 
 $data = mysqli_escape_string($mysqli, $_POST['books']);
 
-$result = mysqli_query($mysqli, "SELECT denomination,id, denomination_secondaire, code
+$result = mysqli_query($mysqli, "SELECT denomination, denomination_secondaire, code
     FROM comics
     WHERE id = $data; ");
 
