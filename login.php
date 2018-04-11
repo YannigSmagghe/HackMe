@@ -5,6 +5,8 @@
 
 <body>
 <?php
+// Start the session
+session_start();
 //including the database connection file
 include_once("config.php");
 
@@ -28,16 +30,27 @@ if(empty($login) || empty($password)){
     // if all the fields are filled (not empty)
 
     //insert data to database
-    $hashed_password = crypt($password);
+    $hashed_password = md5($password);
     $result = mysqli_query($mysqli, "SELECT IF( EXISTS(
             SELECT denomination
             FROM people
-            WHERE `denomination` =  $login AND `code_2_connexion` = $password), true, false)");
+            WHERE `denomination` =  '" . $login . "' AND `code_2_connexion` = '" . $hashed_password . "'), true, false)");
+    $res = mysqli_fetch_array($result);
+//    var_dump($res);die;
+    if ($res[0] === '1'){
+        $data = mysqli_query($mysqli, "
+            SELECT *
+            FROM people
+            WHERE `denomination` =  '" . $login . "' AND `code_2_connexion` = '" . $hashed_password . "'");
+        $data = mysqli_fetch_array($data);
+        $_SESSION["userId"] = $data['id'];
+    }
 
     //display success message
     echo "<font color='green'>New Users added successfully.";
     echo "<br/><a href='index.php'>View Result</a>";
-    if ($result){
+
+    if ($res[0] === '1'){
         header('Location: profil.php');
     }else{
         header('Location: index.php');
