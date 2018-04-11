@@ -2,6 +2,7 @@
 // including the database connection file
 include_once("config.php");
 session_start();
+
 if (isset($_POST['update'])) {
 
     $id = mysqli_real_escape_string($mysqli, $_POST['id']);
@@ -10,8 +11,7 @@ if (isset($_POST['update'])) {
     $password = mysqli_real_escape_string($mysqli, $_POST['password']);
     $age = mysqli_real_escape_string($mysqli, $_POST['age']);
     $email = mysqli_real_escape_string($mysqli, $_POST['email']);
-    $avatar = mysqli_real_escape_string($mysqli, $_POST['avatar']);
-
+    $avatar = $_FILES["avatar"]["name"];
     // checking empty fields
     if (empty($name) || empty($age) || empty($email) || empty($avatar) || empty($password)) {
 
@@ -34,10 +34,24 @@ if (isset($_POST['update'])) {
         }
 
     } else {
+
+        // save file on folder
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["avatar"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif" ) {
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+
+        move_uploaded_file($_FILES["avatar"]["tmp_name"],$target_file);
+
         //updating the table
         $hashed_password = md5($password);
         $result = mysqli_query($mysqli, "UPDATE people SET denomination='$name',age='$age',email='$email'
-                                                ,avatar='$avatar',code_2_connexion='$hashed_password'WHERE id=".$_SESSION['userId']);
+                                                ,avatar='$avatar',code_2_connexion='$hashed_password'WHERE id=" . $_SESSION['userId']);
 
         //redirectig to the display page. In our case, it is index.php
         header("Location: profil.php");
@@ -68,7 +82,7 @@ while ($res = mysqli_fetch_array($result)) {
 <a href="index.php">Home</a>
 <br/><br/>
 
-<form name="form1" method="post" action="profil.php">
+<form name="form1" method="post" action="profil.php" enctype="multipart/form-data">
     <table border="0">
         <tr>
             <td>login</td>
@@ -76,12 +90,12 @@ while ($res = mysqli_fetch_array($result)) {
         </tr>
         <tr>
             <td>password</td>
-            <td><input  placeholder="Password" id="password" name="password" required></td>
+            <td><input placeholder="Password" id="password" name="password" ></td>
         </tr>
         <tr>
             <td>confirm password</td>
 
-            <td><input type="password" placeholder="Confirm Password" id="confirm_password" required></td>
+            <td><input type="password" placeholder="Confirm Password" id="confirm_password" ></td>
             <!--<td><input type="password" placeholder="Confirm Password" id="confirm_password" required></td>-->
 
         </tr>
@@ -95,15 +109,21 @@ while ($res = mysqli_fetch_array($result)) {
         </tr>
         <tr>
             <td>avatar</td>
-            <td><input type="file" name="avatar" id="fileToUpload" value="<?php echo $avatar; ?>"></td>
+<!--            upload d'images vers le dossier ./uploads-->
+            <td><input type="file" name="avatar" value="<?php echo $avatar; ?>"></td>
         </tr>
 
         <tr>
-            <td><input type="hidden" name="id" value=<?php echo $_GET['id']; ?>></td>
+            <td><input type="hidden" name="id" value=<?php echo $_SESSION['userId']; ?>></td>
             <td><input type="submit" name="update" value="Update"></td>
         </tr>
+
     </table>
 </form>
+<h1>Mon super avatar </h1>
+<img src="<?php include('./uploads/'. $avatar)?>"/>
+
+<?php echo "<td><a href=\"profil.php?id=" . $_SESSION['userId'] . "\">Edit</a> | <a href=\"delete.php?id=" . $_SESSION['userId'] . "\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>"; ?>
 <script src="script.js"></script>
 </body>
 </html>

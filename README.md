@@ -1,9 +1,49 @@
-Simple Create, Read, Update, Delete (CRUD) in PHP & MySQL
+Hack ME  (CRUD) in PHP & MySQL
 ========
 
-A simple and basic system to add, edit, delete and view using PHP and MySQL. 
+Members
+-------------------------------------------- 
+Marie Cogis<br>
+Piere-louis Signoret<br>
+Pierre Coursier<br>
+Yannig Smagghe<br>
+-------------------------------------------- 
 
-Blog Article: [Very simple add, edit, delete, view in PHP & MySQL](http://blog.chapagain.com.np/very-simple-add-edit-delete-view-in-php-mysql/)
 
-SQL script to create database and tables is present in **database.sql** file.
+:application_path: ./
+:database_path: ./database.sql
 
+Install
+-------------------------------------------- 
+import database.sql dans la bdd <br>
+Change le config.php pour correspondre à la bdd
+
+Some words to describe the app.. HackMe !
+
+Vulnerabilities
+===============
+
+1.1 XSS: Allow to inject code via pagination
+--------------------------------------------
+
+In feedbacks list page, a GET parameter `page` is vulnerable to XSS attack.
+
+1.2 Proof of concept
+~~~~~~~~~~~~~~~~~~~~~
+
+http://localhost/feedbacks.php?page="><script>alert('hello');</script>
+~~~~~~~~~~~~~~~~~~~~~
+1.3 Code
+~~~~~~~~
+
+File: `feedbacks.php`, line: 182.
+
+    <a href="#" class="current-page"><?= replace(array('<', '>'), '', $_GET['id']) ?></a>
+~~~~~~~~~~~~~~~~~~~~~
+1.4 Fix
+~~~~~~~
+
+   <a href="#" class="current-page"><?= htmlentities($_GET['id']) ?></a>
+
+
+...
