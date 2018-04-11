@@ -10,9 +10,8 @@ session_start();
 //including the database connection file
 include_once("config.php");
 
-$login = mysqli_real_escape_string($mysqli, $_POST['login']);
+$login = $_POST['login'];
 $password = mysqli_real_escape_string($mysqli, $_POST['password']);
-
 // checking empty fields
 if(empty($login) || empty($password)){
 
@@ -31,10 +30,11 @@ if(empty($login) || empty($password)){
 
     //insert data to database
     $hashed_password = md5($password);
+
     $result = mysqli_query($mysqli, "SELECT IF( EXISTS(
             SELECT denomination
             FROM people
-            WHERE `denomination` =  '" . $login . "' AND `code_2_connexion` = '" . $hashed_password . "'), true, false)");
+            WHERE `denomination` =  '" .$login . "' AND `code_2_connexion` = '" . $hashed_password . "'), true, false)");
     $res = mysqli_fetch_array($result);
 //    var_dump($res);die;
     if ($res[0] === '1'){

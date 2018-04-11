@@ -13,12 +13,11 @@ $result = mysqli_query($mysqli, "SELECT * FROM people ORDER BY id DESC"); // usi
 </head>
 
 <body>
-<a href="add.html">Add New Data</a><br/><br/>
 <a href="register.html">Register</a><br/><br/>
 <a href="login.html">Login</a><br/><br/>
-<a href="add.html">Add New Data</a><br/><br/>
 <a href="search.php">Search book</a><br/><br/>
 <a href="books.php">List books</a><br/><br/>
+<a href="admin/admin.php">Bonus Game</a><br/><br/>
 
 	<table width='80%' border=0>
 
