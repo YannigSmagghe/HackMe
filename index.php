@@ -19,9 +19,6 @@ $result = mysqli_query($mysqli, "SELECT * FROM people ORDER BY id DESC"); // usi
 <div class="container-fluid top">
     <ul>
         <li>
-            <a href="add.html">Add New Data</a>
-        </li>
-        <li>
             <a href="register.html">Register</a>
         </li>
         <li>
@@ -32,6 +29,9 @@ $result = mysqli_query($mysqli, "SELECT * FROM people ORDER BY id DESC"); // usi
         </li>
         <li>
             <a href="books.php">List books</a>
+        </li>
+        <li>
+            <a href="livres/index.php">Book reader</a>
         </li>
         <li>
             <a href="admin/admin.php">Bonus game</a>
