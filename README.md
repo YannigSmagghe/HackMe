@@ -44,7 +44,12 @@ In feedbacks list page, a GET parameter `page` is vulnerable to XSS attack.
 1.1 Proof of concept
 ~~~~~~~~~~~~~~~~~~~~~
 Page : fiche.php (books list -> select one)
-    In the name field u can load JS script when u write it with upper case (<SCRIPT></SCRIPT>)
+    You need to change input type from "email" to "text" and increase "maxlength" from 30 to whatever you want
+    In the name field you can load JS script, however u can't use :
+        - <script>
+        - <SCRIPT>
+        - alert 
+        - console.log
 ~~~~~~~~~~~~~~~~~~~~~
 1.2 Code
 ~~~~~~~~
