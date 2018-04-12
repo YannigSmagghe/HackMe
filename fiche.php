@@ -1,6 +1,8 @@
 <html>
 <head>
     <title>List books</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -24,37 +26,46 @@ WHERE comics_name = '$name'
 
 ?>
 
-<?php
-while ($row = $book->fetch_array()) { ?>
-    <h1> <?= $row['denomination'] ?> </h1>
-    <h3> <?= $row['denomination_secondaire'] ?> </h3>
-    <p> <?= $row['code'] ?> </p>
-<?php } ?>
-<hr>
-<h1 style="border-bottom: 1px solid cadetblue;">Les commentaires</h1>
-<div>
-    <?php while ($row = $commentaires->fetch_array()) {
-        if(sizeof($row) > 0) {
-        ?>
-        <h6 style="color: dimgrey;"> Titre <?= $row['user_name'] ?></h6><br>
-        <p><?= $row['commentarie'] ?></p>
-    <?php }else{
-            echo '<p>Aucun commentaire.</p>';
-        }
-    } ?>
+<div class="container-fluid top">
+    <ul>
+        <li>
+            <a href="index.php">Home</a>
+        </li>
+    </ul>
 </div>
 
-<form action="fiche.php?name=<?= $name ?>" method="post">
-    <input type="text" name="user_name" placeholder="Nom..." required> <br><br>
-    <textarea name="comment" rows="4" cols="50" required></textarea> <br><br>
-    <input type="submit" value="Envoyer le commentaire">
-</form>
+<div class="container bc-container">
+    <?php
+    while ($row = $book->fetch_array()) { ?>
+        <h1 class="titre"> <?= $row['denomination'] ?> </h1>
+        <h3> <?= $row['denomination_secondaire'] ?> </h3>
+        <p> <?= $row['code'] ?> </p>
+    <?php } ?>
+    <h1 style="border-bottom: 2px solid cadetblue;">Les commentaires</h1>
+    <div>
+        <?php while ($row = $commentaires->fetch_array()) {
+            if(sizeof($row) > 0) {
+                ?>
+                <h6 style="color: dimgrey;"> Titre <?= $row['user_name'] ?></h6><br>
+                <p><?= $row['commentarie'] ?></p>
+            <?php }else{
+                echo '<p>Aucun commentaire.</p>';
+            }
+        } ?>
+    </div>
+
+    <form action="fiche.php?name=<?= $name ?>" method="post">
+        <input type="text" name="user_name" placeholder="Nom..." required> <br><br>
+        <textarea name="comment" rows="4" cols="50" required></textarea> <br><br>
+        <input type="submit" value="Envoyer le commentaire">
+    </form>
+</div>
 
 
 <?php
 
 $user_name = mysqli_escape_string($mysqli, $_POST['user_name']);
-$comment = mysqli_escape_string($mysqli, $_POST['comment']);
+$comment = htmlentities($mysqli, $_POST['comment']);
 
 function verif_script($user){
     if(strstr($user, '<script>')){

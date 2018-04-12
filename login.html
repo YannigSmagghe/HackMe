@@ -1,19 +1,26 @@
 <html>
 <head>
 	<title>Register</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-	<a href="index.php">Home</a>
-	<br/><br/>
-
+<div class="container-fluid top">
+	<ul>
+		<li>
+			<a href="index.php">Home</a>
+		</li>
+	</ul>
+</div>
+<div class="container bc-secondaire">
 	<form action="login.php" method="post" name="formLogin">
 		<table width="25%" border="0">
-			<tr> 
+			<tr>
 				<td>login</td>
 				<td><input type="text" name="login"></td>
 			</tr>
-			<tr> 
+			<tr>
 				<td>password</td>
 				<td><input type="password" placeholder="Password" id="password" name="password" required></td>
 			</tr>
@@ -24,7 +31,10 @@
 			</tr>
 		</table>
 	</form>
-	<script src="script.js"></script>
+</div>
 </body>
+<div class="footer">
+	<script src="script.js"></script>
+</div>
 </html>
 

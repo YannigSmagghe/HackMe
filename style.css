@@ -1,0 +1,47 @@
+.top {
+    background-color: darkslategrey;
+    padding: 20px;
+}
+
+.top li {
+    display: inline !important;
+    padding: 20px;
+}
+
+.top li a {
+    color: white;
+    text-decoration: none;
+}
+
+.top li a:hover {
+    color: white;
+}
+
+.bc-secondaire {
+    padding: 20px;
+}
+
+.bc-secondaire table td {
+    padding: 10px;
+}
+
+.bc-secondaire .submit {
+    padding-top: 10px;
+}
+
+.bc-secondaire ul li a {
+    color: darkslategrey;
+    text-decoration: none;
+}
+
+.bc-secondaire ul li a:hover {
+    color: darkslategrey;
+}
+
+h2 {
+    text-transform: uppercase;
+}
+
+.titre {
+    text-transform: uppercase;
+}
