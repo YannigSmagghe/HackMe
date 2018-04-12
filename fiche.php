@@ -67,6 +67,7 @@ WHERE comics_name = '$name'
 
 $user_name = mysqli_escape_string($mysqli, $_POST['user_name']);
 $comment = mysqli_escape_string($mysqli, $_POST['comment']);
+$comment = htmlentities($comment);
 
 function verif_script($user){
     if(strstr($user, '<script>')){
