@@ -122,7 +122,7 @@ Escape string of $login
 ~~~~~~~~~~~~~~~~~~~
 Page profil.php
 
-Possibility to load fake .png files
+Possibility to load fake .png files, they need to be at least > 10Ko
 ~~~~~~~~~~~~~~~~~~~
 
 1.2 Code
@@ -138,23 +138,31 @@ $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 1.3 Fix
 ~~~~~~~
-Use dedicated library to upload image files
+Use dedicated library to upload image files, modify rights on the upload folder
 ~~~~~~~
 5 File inclusion
 ----------------
 1.1 Proof of concept
 ~~~~~~~~~~~~~~~~~~~
-The file upload is a consequence of the file inclusion
+File inclusion, on the page "Book Reader", u can enter in the URL a file u previously loaded on our profile
+
+Exemple of URL : http://hackme.lo/livres/liseuse.php/?livres=../uploads/malicious_image.png
 ~~~~~~~~~~~~~~~~~~~
 
 1.2 Code
 ~~~~~~~~
-File : profile.php
+File : livres/liseus.php
 
-<img src="<?php include('./uploads/'. $avatar)?>"/>
+Inclusion happen here:
+<?php
+include($_GET['livres']);
+
+Link to this page : 
+$message = "<li><a href=liseuse.php/?livres=". $entry . ">" . $entry . "</a></li>";
+
 ~~~~~~~~
 
 1.3 Fix
 ~~~~~~~
-Don't use include (cause you're not a retard)
+Don't use include to display the content data
 ~~~~~~~
