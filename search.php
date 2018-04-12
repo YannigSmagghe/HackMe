@@ -56,11 +56,11 @@ $result = mysqli_query($mysqli, "SELECT denomination, denomination_secondaire, c
 //    echo '<h3 style="color:red;">' . $mysqli->error . '</h3>';
 //}
 
-echo '<ul>';
+echo '<div class="container"><ul>';
 while ($row = $result->fetch_array()) {
     echo '<li>' .  $row['denomination'] . ' - ' .  $row['denomination_secondaire'] . ' // code : ' . $row['code'] . '</li>';
 }
-echo '</ul>';
+echo '</ul></div>';
 
 ?>
 
