@@ -33,6 +33,9 @@ $result = mysqli_query($mysqli, "SELECT * FROM people ORDER BY id DESC"); // usi
         <li>
             <a href="books.php">List books</a>
         </li>
+        <li>
+            <a href="admin/admin.php">Bonus game</a>
+        </li>
     </ul>
 </div>
 <div class="container bc-secondaire">
