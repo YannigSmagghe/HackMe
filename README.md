@@ -122,7 +122,7 @@ Escape string of $login
 ~~~~~~~~~~~~~~~~~~~
 Page profil.php
 
-Possibility to load fake .png files
+Possibility to load fake .png files, they need to be at least > 10Ko
 ~~~~~~~~~~~~~~~~~~~
 
 1.2 Code
@@ -138,7 +138,7 @@ $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 1.3 Fix
 ~~~~~~~
-Use dedicated library to upload image files
+Use dedicated library to upload image files, modify rights on the upload folder
 ~~~~~~~
 5 File inclusion
 ----------------
