@@ -70,7 +70,7 @@ $comment = mysqli_escape_string($mysqli, $_POST['comment']);
 
 function verif_script($user){
     if(strstr($user, '<script>')){
-        echo '<div class="container"><h1 style="color: red;">hahahaha</h1></div>';
+        echo '<div class="container"><h1 style="color: red;">Woops you are bad</h1></div>';
         return false;
     }
     return true;

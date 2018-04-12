@@ -23,12 +23,15 @@ This app has several functionalities :
 * Search for comic books
 * a Link to Bonus 
 * Comment a book  
+* A bonus game for tryharders
 
 
 Install
 -------------------------------------------- 
 import database.sql in the database <br>
 Modify config.php to match the database
+<to unlock bonus game>
+cp .htpasswd  /etc/apache2 
 
 Vulnerabilities
 ===============
@@ -151,7 +154,7 @@ Exemple of URL : http://hackme.lo/livres/liseuse.php/?livres=../uploads/maliciou
 
 1.2 Code
 ~~~~~~~~
-File : livres/liseus.php
+File : livres/liseuse.php
 
 Inclusion happen here:
 <?php
@@ -164,5 +167,32 @@ $message = "<li><a href=liseuse.php/?livres=". $entry . ">" . $entry . "</a></li
 
 1.3 Fix
 ~~~~~~~
-Don't use include to display the content data
+Never use include to display the data content
+~~~~~~~
+
+6 Social engineering
+--------------------
+1.1 Proof of concept
+~~~~~~~~~~~~~~~~~~~
+Page : Bonus game (admin/admin.php)
+
+Pretty easy to Brute force password with low security (spoiler alert : admin)
+~~~~~~~~~~~~~~~~~~~
+
+1.2 Code
+~~~~~~~~
+In .htaccess :
+AuthType Basic
+AuthName "Restricted Content"
+AuthUserFile /etc/apache2/.htpasswd
+Require valid-user
+~~~~~~~~
+~~~~~~~~
+In .htpasswd :
+admin:$apr1$63jI7gXQ$g14mHyE0uRASXmOnWGhxS1
+~~~~~~~~
+
+1.3 Fix
+~~~~~~~
+Don't be a retard, use a more complex password.
 ~~~~~~~
