@@ -5,7 +5,7 @@ include("config.php");
 $id = $_GET['id'];
 
 //deleting the row from table
-//$result = mysqli_query($mysqli, "DELETE FROM people WHERE id=$id");
+$result = mysqli_query($mysqli, "DELETE FROM people WHERE id=$id");
 
 //var_dump($_GET['id']);die;
 //redirecting to the display page (index.php in our case)
