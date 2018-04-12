@@ -46,8 +46,9 @@ WHERE comics_name = '$name'
         <?php while ($row = $commentaires->fetch_array()) {
             if(sizeof($row) > 0) {
                 ?>
-                <h6 style="color: dimgrey;"> Titre <?= $row['user_name'] ?></h6><br>
+                <h6 style="color: dimgrey;"> Username : <?= $row['user_name'] ?></h6>
                 <p><?= $row['commentarie'] ?></p>
+                <hr>
             <?php }else{
                 echo '<p>Aucun commentaire.</p>';
             }
@@ -65,11 +66,11 @@ WHERE comics_name = '$name'
 <?php
 
 $user_name = mysqli_escape_string($mysqli, $_POST['user_name']);
-$comment = htmlentities($mysqli, $_POST['comment']);
+$comment = mysqli_escape_string($mysqli, $_POST['comment']);
 
 function verif_script($user){
     if(strstr($user, '<script>')){
-        echo '<h1 style="color: red;">hahahaha</h1>';
+        echo '<div class="container"><h1 style="color: red;">hahahaha</h1></div>';
         return false;
     }
     return true;
@@ -79,11 +80,12 @@ if(verif_script($user_name) && !empty($_POST)){
     $add_comment = mysqli_query($mysqli, "
 INSERT INTO commentaries (user_name, commentarie, comics_name) VALUES ('$user_name', '$comment', '$name');
 ");
+    header('Location: fiche.php?name='. $name);
 }
 
 
 if ($mysqli->error) {
-    echo '<h3 style="color:red;">' . $mysqli->error . '</h3>';
+    echo '<div class="container"><h3 style="color:red;">' . $mysqli->error . '</h3></div>';
 }
 
 
